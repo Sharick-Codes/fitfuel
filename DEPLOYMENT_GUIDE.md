@@ -119,3 +119,4 @@ Before public sharing or demoing:
 - [x] Pre-seeded demo user: `demo@fitfuel.com` / `password123` with 1-click login
 - [x] 36 verified recipe YouTube masterclasses and badge definitions auto-seed on first launch
 - [x] Clinical PDF report export works in browser with zero dependencies
+

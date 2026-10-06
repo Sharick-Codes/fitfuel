@@ -13,5 +13,4 @@ services:
         generateValue: true
       - key: JWT_EXPIRE
         value: 30d
-      - key: MONGODB_URI
-        sync: false
+
