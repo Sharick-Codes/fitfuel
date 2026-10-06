@@ -49,6 +49,23 @@ const LoginPage = () => {
     }
   };
 
+  const handleDemoLogin = async () => {
+    setEmail('demo@fitfuel.com');
+    setPassword('password123');
+    setIsLoading(true);
+    setErrorMsg('');
+    try {
+      await login('demo@fitfuel.com', 'password123');
+      setSuccess(true);
+      setTimeout(() => navigate('/dashboard'), 400);
+    } catch (err) {
+      setErrorMsg(err.message || 'Demo login failed. Please try again.');
+      triggerShake();
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const handleForgotPassword = () => {
     if (!email) {
       setErrorMsg('Please enter your email above, then click Forgot password?');
@@ -438,34 +455,38 @@ const LoginPage = () => {
               <GoogleAuthButton label="Login with Google" />
             </div>
 
-            {/* Quick Demo Athlete Autofill */}
+            {/* Quick Demo Athlete Autofill & Instant Login */}
             <div style={{ marginTop: '12px' }}>
               <button
                 type="button"
-                onClick={() => {
-                  setEmail('demo@fitfuel.com');
-                  setPassword('password123');
-                }}
+                onClick={handleDemoLogin}
+                disabled={isLoading || success}
                 style={{
                   width: '100%',
-                  padding: '10px',
-                  backgroundColor: 'rgba(0, 212, 170, 0.08)',
-                  border: '1px solid rgba(0, 212, 170, 0.28)',
+                  padding: '11px',
+                  backgroundColor: 'rgba(0, 212, 170, 0.1)',
+                  border: '1px solid rgba(0, 212, 170, 0.4)',
                   borderRadius: '8px',
                   color: 'var(--primary)',
-                  fontSize: '0.88rem',
-                  fontWeight: 600,
-                  cursor: 'pointer',
+                  fontSize: '0.92rem',
+                  fontWeight: 700,
+                  cursor: (isLoading || success) ? 'not-allowed' : 'pointer',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   gap: '8px',
                   transition: 'all 0.2s ease'
                 }}
-                onMouseEnter={e => e.currentTarget.style.backgroundColor = 'rgba(0, 212, 170, 0.18)'}
-                onMouseLeave={e => e.currentTarget.style.backgroundColor = 'rgba(0, 212, 170, 0.08)'}
+                onMouseEnter={e => e.currentTarget.style.backgroundColor = 'rgba(0, 212, 170, 0.22)'}
+                onMouseLeave={e => e.currentTarget.style.backgroundColor = 'rgba(0, 212, 170, 0.1)'}
               >
-                <Zap size={15} /> ⚡ 1-Click Demo Fill (demo@fitfuel.com)
+                {isLoading ? (
+                  <span className="loader" style={{ width: 16, height: 16, borderWidth: 2 }} />
+                ) : (
+                  <>
+                    <Zap size={16} /> ⚡ 1-Click Instant Demo Login (demo@fitfuel.com)
+                  </>
+                )}
               </button>
             </div>
 

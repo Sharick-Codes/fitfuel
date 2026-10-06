@@ -4,7 +4,8 @@ import { calculateBMI, calculateBMR, calculateTDEE, calculateCalorieTarget, calc
 
 // Generate JWT Token
 const generateToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, {
+  const secret = process.env.JWT_SECRET || 'fitfuel_super_secure_production_jwt_secret_2026';
+  return jwt.sign({ id }, secret, {
     expiresIn: process.env.JWT_EXPIRE || '30d'
   });
 };
